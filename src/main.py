@@ -6,9 +6,7 @@ from Token import Token
 def main():
     Token.load_dict()
 
-    reg_list = []
-    for _, val in Token.token_dict.items():
-        reg_list.append(val)
+    reg_list = [val for _, val in Token.token_dict.items()]
     regex = '(' + '|'.join(reg_list) + ')'
 
     regex = re.compile(regex)
@@ -17,9 +15,7 @@ def main():
     code = ''.join(code)
     result = regex.findall(code)
 
-    tokens = []
-    for i in result:
-        tokens.append(Token(i))
+    tokens = [Token(i) for i in result]
     
     with open('output.txt', 'w') as out:
         for token in tokens:
