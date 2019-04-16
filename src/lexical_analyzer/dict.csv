@@ -1,5 +1,5 @@
 SINGLE_COMMENT \/\/.+
-MULTI_COMMENT \/\*[.\n]+\*\/
+MULTI_COMMENT /\*[\s\S]*?\*/
 AUTO \bauto\b
 NEW \bnew\b
 EOF \b0\b

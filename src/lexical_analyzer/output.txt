@@ -5,6 +5,9 @@
 <ID> : x
 <RIGHT_ROUND_B> : )
 <LEFT_CURLY_B> : {
+<MULTI_COMMENT> : /*
+    Try multiline comment
+    */
 <SINGLE_COMMENT> : // First x in the below expression is
 <SINGLE_COMMENT> : // for the case when x is 0
 <RETURN> : return
