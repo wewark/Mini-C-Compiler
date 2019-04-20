@@ -1,76 +1,76 @@
 program -> decl_list
-
+---
 decl_list -> decl_list decl
            | decl
-
+---
 decl -> var_decl
       | fun_decl
-
+---
 var_decl -> type_spec ID SEMICOLON
           | type_spec ID LEFT_SQUARE_B RIGHT_SQUARE_B SEMICOLON
-
+---
 type_spec -> VOID
            | BOOL
            | INT
            | FLOAT
-
+---
 fun_decl -> type_spec ID LEFT_ROUND_B params RIGHT_ROUND_B compound_stmt
-
+---
 params -> param_list
         | VOID
-        | ε
-
+        | NULL
+---
 param_list -> param_list COMMA param
             | param
-
+---
 param -> type_spec ID
        | type_spec ID LEFT_SQUARE_B RIGHT_SQUARE_B
-
+---
 stmt_list -> stmt_list stmt
-           | ε
-
+           | NULL
+---
 stmt -> expr_stmt
       | compound_stmt
       | if_stmt
       | while_stmt
       | return_stmt
       | break_stmt
-
+---
 expr_stmt -> expr SEMICOLON
            | SEMICOLON
-
+---
 while_stmt -> WHILE LEFT_ROUND_B expr RIGHT_ROUND_B stmt
-
+---
 compound_stmt -> LEFT_CURLY_B local_decls stmt_list RIGHT_CURLY_B
-
+---
 local_decls -> local_decls local_decl
-             | ε
-
+             | NULL
+---
 local_decl -> type_spec IDENT SEMICOLON
             | type_spec IDENT LEFT_SQUARE_B RIGHT_SQUARE_B SEMICOLON
-
+---
 if_stmt -> IF LEFT_ROUND_B expr RIGHT_ROUND_B stmt
          | IF LEFT_ROUND_B expr RIGHT_ROUND_B stmt ELSE stmt
-
+---
 return_stmt -> RETURN SEMICOLON
              | RETURN expr SEMICOLON
-
+---
 arg_list -> arg_list COMMA expr
           | expr
-
+---
 args -> arg_list
-      | ε
-
+      | NULL
+---
 expr -> IDENT = expr6
       | IDENT [ expr6 ] = expr6
       | expr6
       
 expr6 -> expr6 OR expr5
        | expr5
-
+---
 expr5 -> expr5 AND expr4
        | expr4
-
+---
 expr4 -> expr3 EQ expr3
       | expr3 NE expr3
       | expr3 LE expr3
@@ -78,16 +78,16 @@ expr4 -> expr3 EQ expr3
       | expr3 GE expr3
       | expr3 > expr3
       | expr3
-
+---
 expr3 -> expr3 + expr2
       | expr3 - expr2
       | expr2
-
+---
 expr2 -> expr2 * expr1
       | expr2 / expr1
       | expr2 % expr1
       | expr1
-
+---
 expr1 -> ! expr1
       | - expr1
       | + expr1
@@ -100,3 +100,4 @@ expr1 -> ! expr1
       | INT_LIT
       | FLOAT_LIT
       | NEW type_spec [ expr ]
+---

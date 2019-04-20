@@ -8,7 +8,7 @@ class Rule():
         self.RHS = []
 
     def add_choice(self, obj_list):
-        """Add a choice to the list of paths the rule can choose from
+        """Add a choice to the list of paths the rule can choose from.
 
         obj_list (list of str): The names of the code objects that
                                     must be available to go this path
@@ -16,7 +16,8 @@ class Rule():
         self.RHS.append(obj_list)
 
     def check(self):
-        """Checks if this rule can be applied next by trying all its paths"""
+        """Checks if this rule can be applied next by trying all its paths."""
+        global cursor
         for choice in self.RHS:
             org_cursor = cursor
             success = True
