@@ -46,8 +46,8 @@ compound_stmt -> LEFT_CURLY_B local_decls stmt_list RIGHT_CURLY_B
 local_decls -> local_decls local_decl
              | NULL
 ---
-local_decl -> type_spec IDENT SEMICOLON
-            | type_spec IDENT LEFT_SQUARE_B RIGHT_SQUARE_B SEMICOLON
+local_decl -> type_spec ID SEMICOLON
+            | type_spec ID LEFT_SQUARE_B RIGHT_SQUARE_B SEMICOLON
 ---
 if_stmt -> IF LEFT_ROUND_B expr RIGHT_ROUND_B stmt
          | IF LEFT_ROUND_B expr RIGHT_ROUND_B stmt ELSE stmt
@@ -61,8 +61,8 @@ arg_list -> arg_list COMMA expr
 args -> arg_list
       | NULL
 ---
-expr -> IDENT = expr6
-      | IDENT [ expr6 ] = expr6
+expr -> ID = expr6
+      | ID LEFT_SQUARE_B expr6 RIGHT_SQUARE_B = expr6
       | expr6
       
 expr6 -> expr6 OR expr5
@@ -71,33 +71,34 @@ expr6 -> expr6 OR expr5
 expr5 -> expr5 AND expr4
        | expr4
 ---
-expr4 -> expr3 EQ expr3
-      | expr3 NE expr3
-      | expr3 LE expr3
-      | expr3 < expr3
-      | expr3 GE expr3
-      | expr3 > expr3
+expr4 -> expr3 EQUAL expr3
+      | expr3 NOT_EQUAL expr3
+      | expr3 LESS_EQ expr3
+      | expr3 LESSTHAN expr3
+      | expr3 GREAT_EQ expr3
+      | expr3 GREATERTHAN expr3
       | expr3
 ---
-expr3 -> expr3 + expr2
-      | expr3 - expr2
+expr3 -> expr3 PLUS expr2
+      | expr3 MINUS expr2
       | expr2
 ---
-expr2 -> expr2 * expr1
-      | expr2 / expr1
-      | expr2 % expr1
+expr2 -> expr2 ASTERICK expr1
+      | expr2 DIVIDE expr1
+      | expr2 MOD expr1
       | expr1
 ---
-expr1 -> ! expr1
-      | - expr1
-      | + expr1
-      | ( expr )
-      | IDENT
-      | IDENT [ expr ]
-      | IDENT ( args )
-      | IDENT . size
-      | BOOL_LIT
-      | INT_LIT
-      | FLOAT_LIT
-      | NEW type_spec [ expr ]
+expr1 -> NOT expr1
+      | MINUS expr1
+      | PLUS expr1
+      | LEFT_ROUND_B expr RIGHT_ROUND_B
+      | ID
+      | ID LEFT_SQUARE_B expr RIGHT_SQUARE_B
+      | ID LEFT_ROUND_B args RIGHT_ROUND_B
+      | ID DOT size
+      | TRUE
+      | FALSE
+      | INTEGRAL_LITERAL
+      | FLOAT_LITERAL
+      | NEW type_spec LEFT_SQUARE_B expr RIGHT_SQUARE_B
 ---
