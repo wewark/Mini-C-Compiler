@@ -1,4 +1,4 @@
-from src.parser import cursor, code_objs
+from . import cursor, code_objs
 
 
 class Rule():
@@ -19,15 +19,13 @@ class Rule():
         """Checks if this rule can be applied next by trying all its paths."""
         global cursor
         for choice in self.RHS:
-            org_cursor = cursor
+            org_cursor = cursor[0]
             success = True
             for code_obj in choice:
-                if code_objs[code_obj].check():
-                    cursor += 1
-                else:
+                if not code_objs[code_obj].check():
                     success = False
                     break
             if success:
                 return True
-            cursor = org_cursor
+            cursor[0] = org_cursor
         return False

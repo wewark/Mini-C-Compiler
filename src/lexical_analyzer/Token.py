@@ -8,7 +8,8 @@ class Token:
         self.value = value
 
     def __repr__(self):
-        return '<' + self.type + '> : ' + self.value
+        return self.type
+        # return '<' + self.type + '> : ' + self.value
 
     @staticmethod
     def getType(value):

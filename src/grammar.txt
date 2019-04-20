@@ -1,6 +1,6 @@
 program -> decl_list
 ---
-decl_list -> decl_list decl
+decl_list -> decl decl_list
            | decl
 ---
 decl -> var_decl
