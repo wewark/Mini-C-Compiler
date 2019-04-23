@@ -20,13 +20,13 @@ params -> param_list
         | VOID
         | NULL
 ---
-param_list -> param_list COMMA param
+param_list -> param COMMA param_list
             | param
 ---
 param -> type_spec ID
        | type_spec ID LEFT_SQUARE_B RIGHT_SQUARE_B
 ---
-stmt_list -> stmt_list stmt
+stmt_list -> stmt stmt_list
            | NULL
 ---
 stmt -> expr_stmt
@@ -43,7 +43,7 @@ while_stmt -> WHILE LEFT_ROUND_B expr RIGHT_ROUND_B stmt
 ---
 compound_stmt -> LEFT_CURLY_B local_decls stmt_list RIGHT_CURLY_B
 ---
-local_decls -> local_decls local_decl
+local_decls -> local_decl local_decls
              | NULL
 ---
 local_decl -> type_spec ID SEMICOLON
@@ -55,20 +55,24 @@ if_stmt -> IF LEFT_ROUND_B expr RIGHT_ROUND_B stmt
 return_stmt -> RETURN SEMICOLON
              | RETURN expr SEMICOLON
 ---
-arg_list -> arg_list COMMA expr
+break_stmt -> BREAK SEMICOLON
+---
+arg_list -> expr COMMA arg_list
           | expr
 ---
 args -> arg_list
       | NULL
 ---
-expr -> ID = expr6
-      | ID LEFT_SQUARE_B expr6 RIGHT_SQUARE_B = expr6
+expr -> ID ASSIGN_OPERATOR expr6
+      | ID LEFT_SQUARE_B expr6 RIGHT_SQUARE_B ASSIGN_OPERATOR expr6
       | expr6
-      
-expr6 -> expr6 OR expr5
+---
+expr6 -> expr5 BITWISE_OR expr6
+       | expr5 OR expr6
        | expr5
 ---
-expr5 -> expr5 AND expr4
+expr5 -> expr4 BITWISE_AND expr5
+       | expr4 AND expr5
        | expr4
 ---
 expr4 -> expr3 EQUAL expr3
@@ -79,26 +83,26 @@ expr4 -> expr3 EQUAL expr3
       | expr3 GREATERTHAN expr3
       | expr3
 ---
-expr3 -> expr3 PLUS expr2
-      | expr3 MINUS expr2
+expr3 -> expr2 PLUS expr3
+      | expr2 MINUS expr3
       | expr2
 ---
-expr2 -> expr2 ASTERICK expr1
-      | expr2 DIVIDE expr1
-      | expr2 MOD expr1
+expr2 -> expr1 ASTERICK expr2
+      | expr1 DIVIDE expr2
+      | expr1 MOD expr2
       | expr1
 ---
 expr1 -> NOT expr1
       | MINUS expr1
       | PLUS expr1
       | LEFT_ROUND_B expr RIGHT_ROUND_B
-      | ID
       | ID LEFT_SQUARE_B expr RIGHT_SQUARE_B
       | ID LEFT_ROUND_B args RIGHT_ROUND_B
       | ID DOT size
+      | NEW type_spec LEFT_SQUARE_B expr RIGHT_SQUARE_B
+      | ID
       | TRUE
       | FALSE
       | INTEGRAL_LITERAL
       | FLOAT_LITERAL
-      | NEW type_spec LEFT_SQUARE_B expr RIGHT_SQUARE_B
 ---
