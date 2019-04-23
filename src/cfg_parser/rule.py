@@ -1,4 +1,4 @@
-from . import cursor, code_objs
+from .global_objs import Global
 
 
 class Rule():
@@ -17,15 +17,14 @@ class Rule():
 
     def check(self):
         """Checks if this rule can be applied next by trying all its paths."""
-        global cursor
         for choice in self.RHS:
-            org_cursor = cursor[0]
+            org_cursor = Global.cursor
             success = True
             for code_obj in choice:
-                if not code_objs[code_obj].check():
+                if not Global.code_objs[code_obj].check():
                     success = False
                     break
             if success:
                 return True
-            cursor[0] = org_cursor
+            Global.cursor = org_cursor
         return False
