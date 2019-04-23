@@ -1,6 +1,6 @@
-from . import token_stream, code_objs, cursor
 from .rule import Rule
 from .token import Token
+from .global_objs import Global
 
 
 class Parser():
@@ -33,7 +33,7 @@ class Parser():
                     idx += 1
                 rule.add_choice(obj_list)
 
-            code_objs[rule_name] = rule
+            Global.code_objs[rule_name] = rule
             idx += 1
 
     @staticmethod
@@ -41,9 +41,9 @@ class Parser():
         with open(tokens_file, 'r') as f:
             for line in f.readlines():
                 token_name = line.split()[0]
-                code_objs[token_name] = Token(token_name)
+                Global.code_objs[token_name] = Token(token_name)
 
     def generate_parse_tree(self, tokens):
-        global token_stream, cursor
-        token_stream[:] = tokens
-        print(code_objs['program'].check())
+        Global.token_stream[:] = tokens
+        Global.cursor = 0
+        print(Global.code_objs['program'].check())
