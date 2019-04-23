@@ -1,6 +1,8 @@
 from .rule import Rule
 from .token import Token
 from .global_objs import Global
+from anytree import Node, RenderTree
+from anytree.exporter import DotExporter
 
 
 class Parser():
@@ -22,8 +24,8 @@ class Parser():
 
         idx = 0
         while idx < len(lines):
-            rule = Rule()
             rule_name = lines[idx]
+            rule = Rule(rule_name)
             idx += 1
             while lines[idx] != '---':
                 idx += 1
@@ -46,4 +48,7 @@ class Parser():
     def generate_parse_tree(self, tokens):
         Global.token_stream[:] = tokens
         Global.cursor = 0
-        print(Global.code_objs['program'].check())
+        tree_root = Node('program')
+        print(Global.code_objs['decl_list'].check(tree_root))
+        print(RenderTree(tree_root))
+        DotExporter(tree_root).to_picture('../parse_tree.png')

@@ -4,11 +4,11 @@ import re
 
 class Token:
     def __init__(self, value):
-        self.type = Token.getType(value)
+        self.name = Token.getType(value)
         self.value = value
 
     def __repr__(self):
-        return self.type
+        return self.name
         # return '<' + self.type + '> : ' + self.value
 
     @staticmethod

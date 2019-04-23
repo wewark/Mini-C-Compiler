@@ -1,6 +1,6 @@
-
 from lexical_analyzer.lexical_analyzer import LexicalAnalyzer
 from cfg_parser.parser import Parser
+
 
 def main():
     code_file = 'sample_code.cpp'
