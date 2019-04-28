@@ -27,3 +27,7 @@ class Token:
             reader = csv.reader(f, delimiter=' ')
             for row in reader:
                 Token.token_dict[row[0]] = row[1]
+        # lines = open('dict.csv').readlines()
+        # for line in lines:
+        #     temp_line = line.split()
+        #     Token.token_dict[temp_line[0]] = temp_line[1]

@@ -14,6 +14,7 @@ type_spec -> VOID
            | BOOL
            | INT
            | FLOAT
+           | CHAR
 ---
 fun_decl -> type_spec ID LEFT_ROUND_B params RIGHT_ROUND_B compound_stmt
 ---
@@ -107,4 +108,5 @@ expr1 -> NOT expr1
       | FALSE
       | INTEGRAL_LITERAL
       | FLOAT_LITERAL
+      | CHAR_LITERAL
 ---
