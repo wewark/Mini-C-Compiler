@@ -8,6 +8,7 @@ decl -> var_decl
 ---
 var_decl -> type_spec ID SEMICOLON
           | type_spec ID LEFT_SQUARE_B RIGHT_SQUARE_B SEMICOLON
+          | type_spec ID ASSIGN_OPERATOR expr SEMICOLON
 ---
 type_spec -> VOID
            | BOOL
@@ -48,6 +49,7 @@ local_decls -> local_decl local_decls
 ---
 local_decl -> type_spec ID SEMICOLON
             | type_spec ID LEFT_SQUARE_B RIGHT_SQUARE_B SEMICOLON
+            | type_spec ID ASSIGN_OPERATOR expr SEMICOLON
 ---
 if_stmt -> IF LEFT_ROUND_B expr RIGHT_ROUND_B stmt
          | IF LEFT_ROUND_B expr RIGHT_ROUND_B stmt ELSE stmt
