@@ -31,9 +31,11 @@ param -> type_spec ID
 stmt_list -> stmt stmt_list
            | NULL
 ---
-stmt -> expr_stmt
+stmt -> matched-stmt
+      | unmatched-stmt
+---
+noif-stmt ->  expr_stmt
       | compound_stmt
-      | if_stmt
       | while_stmt
       | return_stmt
       | break_stmt
@@ -52,8 +54,11 @@ local_decl -> type_spec ID SEMICOLON
             | type_spec ID LEFT_SQUARE_B RIGHT_SQUARE_B SEMICOLON
             | type_spec ID ASSIGN_OPERATOR expr SEMICOLON
 ---
-if_stmt -> IF LEFT_ROUND_B expr RIGHT_ROUND_B stmt
-         | IF LEFT_ROUND_B expr RIGHT_ROUND_B stmt ELSE stmt
+matched-stmt -> IF LEFT_ROUND_B expr RIGHT_ROUND_B matched-stmt ELSE matched-stmt
+            | noif-stmt
+---
+unmatched-stmt -> IF LEFT_ROUND_B expr RIGHT_ROUND_B stmt 
+            | IF LEFT_ROUND_B expr RIGHT_ROUND_B matched-stmt ELSE unmatched-stmt
 ---
 return_stmt -> RETURN SEMICOLON
              | RETURN expr SEMICOLON
